@@ -305,26 +305,33 @@ int main() {
     // std::cout << std::fixed << std::setprecision(15);
 
     std::vector<int> mash_sizes = {1, 2, 4, 8, 16, 32, 64};
-    std::vector<int> n_values = {0, 1, 2, 3, 4, 5};
+    std::vector<int> n_values = {1, 2, 3, 4, 5};
     for (auto&& mash_size : mash_sizes) {
         for (auto&& n : n_values) {
             ld result;
-            auto start = std::chrono::high_resolution_clock::now();
+            auto start = std::chrono::high_resolution_clock::now();  // 開始計時
 
+            // 重複計算 100 次以取得較穩定的時間
             for (int i = 0; i < 100; i++) {
                 result = integrate_gauss_legendre(2.0L, 6.0L, 2.0L, 6.0L, n, mash_size);
             }
 
-            auto end = std::chrono::high_resolution_clock::now();
+            auto end = std::chrono::high_resolution_clock::now();  // 結束計時
             auto elapsed = end - start;
+
+            using time_unit = std::chrono::duration<ld, std::micro>;  // 微秒
+            ld time = std::chrono::duration_cast<time_unit>(elapsed).count() / 100;
+
             ld err = result - 144.0L;  // 已知解析解為 144
 
-            std::cout << "mesh_size = " << mash_size << ", n = " << n << ", result = " << result << ", err = " << err
-                      << ", " << err / 144.0L << ", time = " << elapsed.count() << "s" << std::endl;
-
-            // std::cout << elapsed.count() << "s" << std::endl;
+            if (n == 1) std::cout << "\\multirow{5}{*}{" << mash_size << "}";
+            std::cout << " & " << n << " & ";
+            std::cout << std::fixed << std::setprecision(LDBL_DIG - 3) << "$" << result << "$ & ";
+            std::cout << std::defaultfloat << std::setprecision(6) << "$\\sci{" << err << "}$ & $\\sci{" << err / 144.0L
+                      << "}$ & ";
+            std::cout << std::defaultfloat << std::setprecision(4) << time << " µs \\\\" << std::endl;
         }
-        std::cout << "----------------------------------------" << std::endl;
+        std::cout << "\\hline" << std::endl;
     }
     return 0;
 }
