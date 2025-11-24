@@ -121,9 +121,9 @@ if __name__ == "__main__":
         # plt.show()
 
     show_diff_plot(
-        "image/legendre_errors_n.png",
+        "image/h_refinement.png",
         x,
-        "Absolute Error",
+        "Relative Error",
         eeee[0],
         "n=2",
         eeee[1],
@@ -147,9 +147,9 @@ if __name__ == "__main__":
         eeee.append(errors)
 
     show_diff_plot(
-        "image/legendre_errors_m.png",
+        "image/p_refinement.png",
         x,
-        "Absolute Error",
+        "Relative Error",
         eeee[0],
         "m=4",
         eeee[1],
