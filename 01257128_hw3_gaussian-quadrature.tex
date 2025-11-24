@@ -1,0 +1,701 @@
+\documentclass[a4paper,  10pt, oneside, fleqn]{article}
+
+\usepackage{amsmath, amssymb, amsthm}       % 美國數學學會
+\usepackage[CheckSingle, CJKmath]{xeCJK}    % 中文
+\usepackage{fontspec}                       % 字型配置
+\usepackage{geometry}                       % 版面配置
+\usepackage[nocheck]{fancyhdr}              % 頁首頁尾
+\usepackage{color}                          % 顏色
+\usepackage[x11names]{xcolor}               % 更多顏色
+\usepackage{datetime2}                      % 日期、時間
+\usepackage{listings}                       % 顯示 code 用的
+\usepackage{tikz}                           % 畫圖
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{ulem}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{xpatch}
+\usepackage{hyperref}                       % 超連結
+\usepackage{subcaption}                     % 子圖
+\usepackage{cancel}                         % 取消線
+\usepackage{multirow}                       % 表格合併列
+\usepackage{float}                          % 浮動物件位置強制
+% \usepackage{courier}
+% \usepackage[Glenn]{fncychap}              % 排版，頁面模板
+% \usepackage{CJKulem}
+% \usepackage[T1]{fontenc}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setmainfont{Noto Serif}  % 主要字體
+[
+    % Path           = ../.fonts/Noto_Serif/,
+    % Extension      = .ttf,
+    % UprightFont    = *-Regular,
+    % BoldFont       = *-Bold,
+    % ItalicFont     = *-Italic,
+    % BoldItalicFont = *-BoldItalic,
+]
+
+\setmonofont{Consolas}[  % 等寬字體
+    Path           = ../.fonts/Consolas/,
+    Extension      = .ttf,
+    UprightFont    = *-Regular,
+    BoldFont       = *-Bold,
+    ItalicFont     = *-Italic,
+    % BoldItalicFont = *-BoldItalic,
+]
+
+\setCJKmainfont{NotoSerifTC}[  % 中文主要字體
+    Path           = ../.fonts/Noto_Serif_TC/,
+    Extension      = .ttf,
+    UprightFont    = *-Regular,
+    BoldFont       = *-Bold,
+    ItalicFont     = *-Regular, % 中文沒有斜體
+    BoldItalicFont = *-Bold,    % 中文沒有斜體
+]
+
+\setCJKmonofont{NotoSerifTC}[  % 中文等寬字體
+    Path           = ../.fonts/Noto_Serif_TC/,
+    Extension      = .ttf,
+    UprightFont    = *-Regular,
+    BoldFont       = *-Bold,
+    ItalicFont     = *-Regular, % 中文沒有斜體
+    BoldItalicFont = *-Bold,    % 中文沒有斜體
+]
+
+% \setCJKmonofont{LXGWWenKaiMonoTC}[  % 中文等寬字體
+% Path           = .fonts/LXGW_WenKai_Mono_TC/,
+% Extension      = .ttf,
+% UprightFont    = *-Regular,
+% BoldFont       = *-Bold,
+% ]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 彩色模式
+\newcommand{\keywordcolor}{\color{Blue1}}
+\newcommand{\identifiercolor}{\color{black}}
+\newcommand{\commentcolor}{\color{Red4}}
+\newcommand{\stringcolor}{\color{Green4}}
+
+% % 黑白模式
+% \renewcommand{\keywordcolor}{\color{black}}
+% \renewcommand{\identifiercolor}{\color{black}}
+% \renewcommand{\commentcolor}{\color{black!70}}
+% \renewcommand{\stringcolor}{\color{black!55}}
+
+\makeatletter
+\lst@CCPutMacro\lst@ProcessOther {"2D}{\lst@ttfamily{-{}}{-{}}}
+\@empty\z@\@empty
+\makeatother
+
+\lstset{
+    % language=C++,                         % Code 的語言
+    numbers=none,                           % 行號的位置
+    numberstyle=\footnotesize,              % 行號的字型和大小
+    stepnumber=1,                           % 顯示行號的間隔
+    numbersep=5pt,                          % 行號跟 code 的距離
+    showspaces=false,                       % 顯示空白 (使用特別的底線記號)
+    showtabs=false,                         % 顯示 Tab
+    showstringspaces=false,                 % 顯示字串的空白
+    tabsize=2,                              % Tab 的寬度
+    frame=leftline,                         % adds a frame around the code
+    captionpos=b,                           % sets the caption-position to bottom
+    breaklines=true,                        % sets automatic line breaking
+    breakatwhitespace=false,                % sets if automatic breaks should only happen at whitespace
+    escapeinside={\%*}{*)},                 % if you want to add a comment within your code
+    morekeywords={*},                       % 自訂的 Keywords
+    basicstyle=\footnotesize\ttfamily,      % 基本的字型和大小
+    backgroundcolor=\color{white},          % 背景顏色
+    keywordstyle=\bfseries\keywordcolor,    % Keywords 的字型
+    identifierstyle=\identifiercolor,       % 標示符的字型
+    commentstyle=\itshape\commentcolor,     % 註解的字型
+    stringstyle=\itshape\stringcolor,       % 字串的字型
+}
+
+\newcommand{\inputcpp}[ 1]{\lstinputlisting[language=C++]{#1}}  % 引入 C++
+\newcommand{\inputpy}[ 1]{\lstinputlisting[language=Python]{#1}}     % 引入蟒蛇
+\newcommand{\inputjava}[ 1]{\lstinputlisting[language=Java]{#1}}     % 引入爪哇
+\newcommand{\inputtxt}[ 1]{\lstinputlisting{#1}}                     % 引入文字檔
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\geometry{a4paper}                           % 頁面 A4 大小
+% \geometry{includehead}  % 內文區塊包含頁首，沒有頁尾、旁注
+\geometry{headsep=5mm}                       % 頁首和內文的距離
+\geometry{vmargin=1in, hmargin=1in}    % 垂直、水平邊界
+
+\setlength{\columnsep}{3mm}                  % 兩欄模式的間距
+\setlength{\columnseprule}{0pt}              % 兩欄模式間格線粗細
+\setlength{\parskip}{1.25ex}                   % 段落間距
+
+% \titlespacing{\section}{0cm}{24pt}{6pt}
+% \titlespacing{\subsection}{0cm}{0cm}{0cm}
+
+\setcounter{secnumdepth}{3}                  % 目錄顯示第三層
+
+\XeTeXlinebreaklocale "zh"                   % 中文自動換行
+\XeTeXlinebreakskip = 0pt plus 1pt           % 設定段落之間的距離
+
+\renewcommand{\arraystretch}{1.5}
+\setlength{\tabcolsep}{1.25ex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\hypersetup{
+    colorlinks=true,         % 啟用顏色連結
+    linkcolor=red,           % 內部連結顏色
+    filecolor=green,         % 檔案連結顏色
+    urlcolor=blue,           % 網址顏色
+    pdfborder={0 0 1}        % 設定邊框樣式（0 0 1 表示只有底部有邊框）
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\allowdisplaybreaks                     % 允許跨頁的多行公式
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\pagestyle{fancy}
+
+%%%%%%%%%%
+
+% 有序列表樣式
+% \renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}.}
+% \renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}
+% \renewcommand{\labelenumiv}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic{enumiv}.}
+
+%%%%%%%%%%
+
+% 目錄
+% \renewcommand{\contentsname}{Contents}
+% \scriptsize
+% \begin{multicols}{2}
+%     \tableofcontents
+% \end{multicols}
+
+%%%%%%%%%%
+
+% 頁首、頁尾
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[L]{Homework 3, 2D Gaussian Quadrature}
+\fancyhead[R]{黃俊源 01257128}
+\fancyfoot[C]{\thepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength{\abovedisplayskip}{8pt}
+\setlength{\belowdisplayskip}{8pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+
+\newcommand{\domain}{\boldsymbol{D}}
+\newcommand{\jacobian}{\boldsymbol{J}}
+\newcommand{\sci}[2]{#1 \times 10^{#2}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{積分計算}
+
+考慮以下二元函數 $f(x, y)$ 及積分區域 $\domain$：
+\begin{align*}
+    f(x, y) & = 3 \times \sin(8 \pi x) \times \cos(8 \pi y) + x + y + 1 \\
+    \domain & = [2, 6] \times [2, 6]
+\end{align*}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.75\linewidth]{image/contour_plot.png}
+    \caption{函數 $f(x, y)$ 的等高線圖}
+    \label{fig:contour_plot}
+\end{figure}
+
+\subsection*{解析解}
+
+注意到 $\sin(8 \pi x)$ 與 $\cos(8 \pi y)$ 的週期皆為 $\frac{1}{4}$，
+而積分區域 $\domain$ 在 $x$ 與 $y$ 方向上長度皆為 $4$，恰好包含了 $16$ 個完整的週期，
+因此積分結果中關於三角函數的部分會相互抵銷，即
+\begin{equation}
+    \iint_{\domain} 3 \sin(8 \pi x) \cos(8 \pi y) \, dy \, dx = 0
+\end{equation}
+
+因此只需計算剩餘部分的積分：
+\begin{align}
+    \iint_{\domain} f(x, y) \, dy \, dx & =
+    \iint_{\domain} \left[ 3 \sin(8 \pi x) \cos(8 \pi y) + x + y + 1 \right] dy \, dx
+    \\
+                                        & =
+    \int_{2}^{6} \int_{2}^{6} (x + y + 1) \, dy \, dx
+    \\
+                                        & =
+    \int_{2}^{6} \left[ (x + 1) y + \frac{y^2}{2} \right]_{2}^{6} dx
+    \\
+                                        & =
+    \int_{2}^{6} \left[ (x + 1)(6 - 2) + \frac{36 - 4}{2} \right] dx
+    \\
+                                        & =
+    \int_{2}^{6} \left[ 4x + 20 \right] dx
+    \\
+                                        & =
+    \left[ 2x^2 + 20x \right]_{2}^{6}
+    \\
+                                        & =
+    2 \times (36 - 4) + 20 \times (6 - 2) = 64 + 80 = 144
+\end{align}
+
+所以 $f(x, y)$ 在區域 $\domain$ 上積分的解析解為 $144$。
+
+\subsection*{數值解：梯形法則}
+
+將區域 $\domain$ 等分成 $n \times n$ 個小區域，則每個小區域的邊長為 $h = \frac{4}{n}$。
+根據梯形法則，雙重積分的數值解可表示為
+\begin{equation}
+    \iint_{\domain} f(x, y) \, dy \, dx \approx
+    \frac{h^2}{4} \sum_{i=0}^{n} \sum_{j=0}^{n} c_{ij} f(x_i, y_j)
+\end{equation}
+其中 $x_i = 2 + i \cdot h$，$y_j = 2 + j \cdot h$，且 $c_{ij}$ 為
+\begin{equation}
+    c_{ij} =
+    \begin{cases}
+        1, & \text{if } (i, j) \text{ 是四個角落的點}      \\
+        2, & \text{if } (i, j) \text{ 是在邊界上但不是角落的點} \\
+        4, & \text{if } (i, j) \text{ 是內部的點}
+    \end{cases}
+\end{equation}
+
+\begin{lstlisting}[language=C++]
+/**
+ * 使用梯形法則計算 f(x, y) 在區域 [a, b] x [c, d] 上使用 n x m 分割的雙重積分值
+ */
+double trapezoid(double a, double b, double c, double d, int n, int m) {
+    double hx = (b - a) / n, hy = (d - c) / m;
+    double integral = 0.0;
+
+    for (int i = 0; i <= n; i++) {
+        for (int j = 0; j <= m; j++) {
+            double x = a + i * hx, y = c + j * hy;
+            double c = 4.0;  // 預設為內部點
+            if (i == 0 || i == n) c /= 2.0;  // 在 x 邊界上
+            if (j == 0 || j == m) c /= 2.0;  // 在 y 邊界上
+            integral += c * f(x, y);
+        }
+    }
+
+    return integral * (hx * hy / 4.0);
+}
+\end{lstlisting}
+
+使用此方法計算當 $n = 4, 8, 16, 32, 64$ 時的數值解如下表（\autoref{tab:trapezoid}）所示。
+
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{cccc}
+        \hline
+        $n$ & 數值解                   & 絕對誤差                  & 相對誤差                  \\
+        \hline
+        4   & $143.999999999999812$ & $\sci{1.880995}{-13}$ & $\sci{1.306247}{-15}$ \\
+        8   & $143.999999999999897$ & $\sci{1.028344}{-13}$ & $\sci{7.141278}{-16}$ \\
+        16  & $143.999999999999961$ & $\sci{3.901046}{-14}$ & $\sci{2.709060}{-16}$ \\
+        32  & $144.000000000000000$ & $\sci{1.387779}{-17}$ & $\sci{9.637353}{-20}$ \\
+        64  & $144.000000000000000$ & $\sci{2.775558}{-17}$ & $\sci{1.927471}{-19}$ \\
+        \hline
+    \end{tabular}
+    \caption{梯形法則積分結果與誤差比較（已知解析解 = $144$）}
+    \label{tab:trapezoid}
+\end{table}
+
+\subsection*{Gaussian Quadrature}
+
+首先，我們將積分區域 $\domain$ 切分成若干個小區域（cell），並對每個 cell 使用 $n \times n$ 個 Gaussian-Legendre 節點和其對應的權重來進行積分。最後，將所有 cells 的積分結果相加，即可得到整個區域的積分結果。
+
+假設某一 cell 為 $[a, b] \times [c, d]$，則需要將 Gaussian 節點從標準區間 $[-1, 1]$ 映射到該 cell 上。映射公式如下所示：
+\begin{align}
+    x(\xi)  & = \frac{b - a}{2} \xi + \frac{a + b}{2}  \\
+    y(\eta) & = \frac{d - c}{2} \eta + \frac{c + d}{2}
+\end{align}
+其中 $\xi, \eta$ 為標準區間 $[-1, 1]$ 上的 Gaussian 節點，並且有 Jacobian 行列式
+\begin{equation}
+    \lvert \jacobian \rvert = \frac{(b - a)(d - c)}{4}
+\end{equation}
+
+因此，該 cell 上的積分可以表示為
+\begin{equation}
+    \iint_{\text{cell}} f(x, y) \, dy \, dx \approx
+    \sum_{i=1}^{n} \sum_{j=1}^{n} w_i w_j f(x(\xi_i), y(\eta_j)) \lvert \jacobian \rvert
+\end{equation}
+其中 $\xi_i$ 與 $\eta_j$ 為 Legendre 多項式 $P_n(x)$ 的根，$w_i$ 與 $w_j$ 為對應的權重。
+
+\begin{lstlisting}[language=C++]
+/**
+ * 使用 Gauss-Legendre 積分公式計算 f(x, y) 在區域 [a, b] x [c, d] 上的雙重積分值
+ */
+long double integrate_cell_gauss_legendre(long double a, long double b,
+                                          long double c, long double d,
+                                          const std::vector<long double>& roots,
+                                          const std::vector<long double>& weights) {
+    long double integral = 0.0L;
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            // 將 Gaussian 節點轉換為區域 [a,b] x [c,d] 上的座標
+            long double x = ((b - a) / 2.0L) * roots[i] + (a + b) / 2.0L;
+            long double y = ((d - c) / 2.0L) * roots[j] + (c + d) / 2.0L;
+
+            // 累加對應的權重和函數值
+            integral += weights[i] * weights[j] * f(x, y);
+        }
+    }
+
+    // 乘上 Jacobian 行列式
+    return integral * ((b - a) / 2.0L) * ((d - c) / 2.0L);
+}
+\end{lstlisting}
+
+最後，將所有 cell 的積分結果相加，即可得到整個區域 $\domain$ 的積分結果
+\begin{equation}
+    \iint_{\domain} f(x, y) \, dy \, dx \approx
+    \sum_{\text{cells}} \iint_{\text{cell}} f(x, y) \, dy \, dx
+\end{equation}
+
+\begin{lstlisting}[language=C++]
+/**
+ * 使用 Gauss-Legendre 積分公式計算 f(x, y) 在區域 [a, b] x [c, d] 上
+ * 使用 n 個節點和 meshs x meshs 分割的雙重積分值
+ */
+long double integrate_gauss_legendre(long double a, long double b,
+                                     long double c, long double d,
+                                     int n, int meshs) {
+    // 取得 Legendre 多項式 P_n(x) 的根與權重
+    auto [roots, weights] = legendre_roots_weights(n);
+    // 計算每個網格單元的大小
+    long double hx = (b - a) / meshs, hy = (d - c) / meshs;
+    long double integral = 0.0L;
+
+    // 對每個 cell 進行積分並累加結果
+    for (int i = 0; i < meshs; i++) {
+        for (int j = 0; j < meshs; j++) {
+            // 計算每個 cell 的邊界
+            long double cell_a = a + i * hx, cell_b = cell_a + hx;
+            long double cell_c = c + j * hy, cell_d = cell_c + hy;
+
+            // 計算該 cell 的積分並累加
+            integral += integrate_cell_gauss_legendre(cell_a, cell_b, cell_c, cell_d, roots, weights);
+        }
+    }
+
+    return integral;
+}
+\end{lstlisting}
+
+在主程式中，我們可以設定多組不同的區塊數量 $M$ 和 Gaussian 節點數量 $N$（亦即 Legendre 多項式的次數），並使用 Gauss-Legendre 積分公式來計算每一組參數下的積分結果。計算完成後，將其與解析解進行比較，並計算相應的誤差。此外，在計算過程中，還會記錄執行 100 次所花費的時間，以便評估不同參數組合下的效能表現。
+
+\begin{lstlisting}[language=C++]
+std::vector<int> mesh_values = {1, 2, 4, 8, 16, 32, 64};  // 要測試的 mesh
+std::vector<int> n_values = {1, 2, 3, 4, 5, 6, 7};        // 要測試的 n 值
+
+for (auto&& m : mesh_values) {
+    for (auto&& n : n_values) {
+        ld result;
+        auto start = std::chrono::high_resolution_clock::now(); // 開始計時
+
+        for (int iter = 0; iter < 100; iter++)
+            result = integrate_gauss_legendre(2.0L, 6.0L, 2.0L, 6.0L, n, m);
+
+        auto end = std::chrono::high_resolution_clock::now();   // 結束計時
+        auto elapsed = end - start;
+
+        using time_unit = std::chrono::duration<ld, std::micro>;  // 微秒
+        ld time = std::chrono::duration_cast<time_unit>(elapsed).count() / 100;
+
+        ld error = result - 144.0L;  // 已知解析解為 144
+
+        std::cout << "mesh = " << m << ", n = " << n << ", result = " << result
+                  << ", err = " << error << ", rel_err = " << error / 144.0L
+                  << ", time = " << time << " µs" << std::endl;
+    }
+    std::cout << "----------------------------------------" << std::endl;
+}
+\end{lstlisting}
+
+\section*{成果}
+
+程式對於每組 $M$ 和 $N$ 計算出數值積分結果後，將其與解析解 $144$ 進行比較，並計算出絕對誤差與相對誤差，同時記錄每組參數下的平均執行時間。執行結果請見下頁表格 \autoref{tab:gauss_legendre}，從表格中我們可以觀察到不同網格數量與 Gaussian 節點數量對積分結果精度與計算時間的影響，如下所示：
+
+\begin{enumerate}
+    \item 隨著區塊數量 $M$ 的增加，積分值逐漸接近解析解 $144$，絕對誤差也逐漸減小，最終相對誤差接近 $10^{-19}$ \~{} $10^{-18}$ 的量級，相當於 \verb|long double| 的機器精度限制。然而，當 $M \geq 16$ 時，誤差的變化趨於平緩，變化幅度變得不明顯。
+    \item 隨著區塊數量的增加，計算所需的執行時間顯著增長，從微秒級別增長到毫秒級別。
+    \item 在較小的區塊數量下，增加 Gaussian 節點數量 $N$ 可以顯著提高積分的精度，減少誤差。然而，當區塊數量達到一定程度（例如 $M \geq 16$）後，進一步增加 $N$ 對誤差的改善效果變得不顯著。
+    \item 增加節點數量 $N$ 會導致執行時間增加，因為更多的節點意味著更多的計算步驟。
+\end{enumerate}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        \hline
+        Mesh                & N & 高斯積分值                 & 絕對誤差                 & 相對誤差                 & 執行時間     \\
+        \hline
+        \multirow{5}{*}{1}  & 1 & $143.999999999999812$ & $\sci{1.881}{-13}$   & $\sci{1.30625}{-15}$ & 1.241 µs \\
+                            & 2 & $143.999999999999897$ & $\sci{1.03029}{-13}$ & $\sci{7.15477}{-16}$ & 1.685 µs \\
+                            & 3 & $143.999999999999927$ & $\sci{7.34829}{-14}$ & $\sci{5.10298}{-16}$ & 3.321 µs \\
+                            & 4 & $143.999999999999990$ & $\sci{1.02557}{-14}$ & $\sci{7.122}{-17}$   & 3.853 µs \\
+                            & 5 & $143.999999999999991$ & $\sci{8.89566}{-15}$ & $\sci{6.17754}{-17}$ & 11.47 µs \\
+        \hline
+        \multirow{5}{*}{2}  & 1 & $143.999999999999812$ & $\sci{1.88113}{-13}$ & $\sci{1.30634}{-15}$ & 1.31 µs  \\
+                            & 2 & $143.999999999999975$ & $\sci{2.53131}{-14}$ & $\sci{1.75785}{-16}$ & 2.152 µs \\
+                            & 3 & $143.999999999999917$ & $\sci{8.29892}{-14}$ & $\sci{5.76314}{-16}$ & 4.23 µs  \\
+                            & 4 & $143.999999999999938$ & $\sci{6.20476}{-14}$ & $\sci{4.30886}{-16}$ & 5.941 µs \\
+                            & 5 & $143.999999999999978$ & $\sci{2.15938}{-14}$ & $\sci{1.49957}{-16}$ & 13.23 µs \\
+        \hline
+        \multirow{5}{*}{4}  & 1 & $143.999999999999982$ & $\sci{1.75832}{-14}$ & $\sci{1.22105}{-16}$ & 1.991 µs \\
+                            & 2 & $143.999999999999941$ & $\sci{5.86198}{-14}$ & $\sci{4.07082}{-16}$ & 3.882 µs \\
+                            & 3 & $144.000000000000002$ & $\sci{1.79023}{-15}$ & $\sci{1.24322}{-17}$ & 8.123 µs \\
+                            & 4 & $144.000000000000001$ & $\sci{6.80012}{-16}$ & $\sci{4.7223}{-18}$  & 12.18 µs \\
+                            & 5 & $144.000000000000012$ & $\sci{1.22263}{-14}$ & $\sci{8.49051}{-17}$ & 23.05 µs \\
+        \hline
+        \multirow{5}{*}{8}  & 1 & $144.000000000000025$ & $\sci{2.5091}{-14}$  & $\sci{1.74243}{-16}$ & 11.06 µs \\
+                            & 2 & $143.999999999999919$ & $\sci{8.06855}{-14}$ & $\sci{5.60316}{-16}$ & 12.38 µs \\
+                            & 3 & $144.000000000000006$ & $\sci{6.17562}{-15}$ & $\sci{4.28862}{-17}$ & 24.27 µs \\
+                            & 4 & $144.000000000000000$ & $\sci{2.77556}{-16}$ & $\sci{1.92747}{-18}$ & 58.72 µs \\
+                            & 5 & $144.000000000000000$ & $\sci{4.71845}{-16}$ & $\sci{3.2767}{-18}$  & 64.84 µs \\
+        \hline
+        \multirow{5}{*}{16} & 1 & $144.000000000000046$ & $\sci{4.64351}{-14}$ & $\sci{3.22466}{-16}$ & 14.19 µs \\
+                            & 2 & $143.999999999999998$ & $\sci{2.1233}{-15}$  & $\sci{1.47451}{-17}$ & 39.54 µs \\
+                            & 3 & $144.000000000000001$ & $\sci{6.80012}{-16}$ & $\sci{4.7223}{-18}$  & 82.74 µs \\
+                            & 4 & $144.000000000000000$ & $\sci{1.38778}{-17}$ & $\sci{9.63735}{-20}$ & 146.7 µs \\
+                            & 5 & $144.000000000000000$ & $\sci{1.38778}{-17}$ & $\sci{9.63735}{-20}$ & 220.3 µs \\
+        \hline
+        \multirow{5}{*}{32} & 1 & $144.000000000000000$ & $\sci{2.77556}{-17}$ & $\sci{1.92747}{-19}$ & 53.9 µs  \\
+                            & 2 & $144.000000000000000$ & $\sci{1.38778}{-17}$ & $\sci{9.63735}{-20}$ & 151.9 µs \\
+                            & 3 & $144.000000000000000$ & $\sci{2.77556}{-17}$ & $\sci{1.92747}{-19}$ & 332.1 µs \\
+                            & 4 & $144.000000000000000$ & $\sci{2.77556}{-17}$ & $\sci{1.92747}{-19}$ & 579.5 µs \\
+                            & 5 & $144.000000000000000$ & $\sci{1.38778}{-17}$ & $\sci{9.63735}{-20}$ & 859.9 µs \\
+        \hline
+        \multirow{5}{*}{64} & 1 & $144.000000000000000$ & $\sci{2.77556}{-17}$ & $\sci{1.92747}{-19}$ & 207.8 µs \\
+                            & 2 & $144.000000000000000$ & $\sci{1.249}{-16}$   & $\sci{8.67362}{-19}$ & 603.8 µs \\
+                            & 3 & $144.000000000000000$ & $\sci{8.32667}{-17}$ & $\sci{5.78241}{-19}$ & 1251 µs  \\
+                            & 4 & $144.000000000000000$ & $\sci{1.249}{-16}$   & $\sci{8.67362}{-19}$ & 2178 µs  \\
+                            & 5 & $144.000000000000000$ & $\sci{8.32667}{-17}$ & $\sci{5.78241}{-19}$ & 3332 µs  \\
+        \hline
+    \end{tabular}
+    \caption{Gauss-Legendre 積分結果與誤差比較（已知解析解 = $144$）}
+    \label{tab:gauss_legendre}
+\end{table}
+
+\subsection*{H-refinement}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.75\linewidth]{image/h_refinement.png}
+    \caption{分割空間成更多小區塊對相對誤差的影響}
+    \label{fig:h_refinement}
+\end{figure}
+
+從上圖 \autoref{fig:h_refinement} 可見，在區塊數量 $M$ 較小時（如 $M \leq 16$），相對誤差的波動非常劇烈，這說明在只有少量區塊的情況下，積分結果對於區塊劃分的敏感度較高，可能會導致較大的誤差。
+
+隨著 $M$ 的增加，相對誤差顯著下降並趨於穩定，主要集中在 $10^{-19}$ 到 $10^{-18}$ 的範圍內，這表明增加區塊數量能有效提高幾分的穩定性和精度。特別是在 $M \geq 24$ 之後，使用不同取樣點數量 $N = 2, 3, 4$ 的三種方法，其相對誤差幾乎趨近一致，這說明了 h-refinement 已經將誤差逼近到 \verb|long double| 的機器精度極限了。在到達此階段後，繼續增加 $M$ 對誤差的改善效果將不再顯著。
+
+\subsection*{P-refinement}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.75\linewidth]{image/p_refinement.png}
+    \caption{固定 mesh，增加取樣點數量相對誤差的影響}
+    \label{fig:p_refinement}
+\end{figure}
+
+從上圖 \autoref{fig:p_refinement} 可見與 h-refinement 類似的，當取樣點數量 $N$ 較少時（例如 $N \leq 3$），相對誤差的波動較大，這說明在取樣點數量不足的情況下，積分結果對於取樣點的選擇較為敏感。
+
+當 $N$ 增加到一定程度後（如 $N \geq 16$），在低區塊數量 $M = 16, 32$ 的情況下，相對誤差趨近於穩定在 $10^{-18}$ 到 $10^{-17}$ 左右。雖然將區塊數量從 $M = 32$ 提高到 $64$ 時可以使相對誤差降低大約一個量級，但是這項改進是以執行時間大幅增加為代價的。這表示 p-refinement 在達到一定程度後，進一步增加 $N$ 對誤差的改善效果不再顯著，而且會導致計算成本急劇攀升。
+
+\subsection*{比較 h-refinement 與 p-refinement}
+
+在 Gaussian Quadrature 中，h-refinement 與 p-refinement 是兩種提升計算精度的關鍵策略，兩者各有優勢並在精度與效率之間扮演不同的角色。
+
+H-refinement 透過將積分區域切割成更多、更細的區塊（$M$）來運作。這種方式能有效降低每個 cell 的局部誤差，並最終使整體精度逼近機器精度的下限。H-refinement 的優勢在於能提升最終可達到的最高準確度，但其收斂速度屬於代數級，且區塊數量 $M$ 增加後，計算量亦會大幅成長，因此計算成本較高。
+
+相對地，p-refinement 則是在每個 cell 內增加高斯取樣點（$N$），從而充分發揮高斯積分的指數級收斂性。這意味著只需少量增加取樣點 $N$，誤差便能迅速下降，使計算成本相對更具效率。然而，p-refinement 的精度極限會受到區塊解析度 $M$ 的限制；當 $M$ 不足時，p-refinement 無法突破由區塊數量下限所設定的誤差瓶頸。
+
+兩者之間的依賴關係呈現出明確的分工：H-refinement 提供了最終準確度的上限，決定了誤差能否逼近機器精度；而 p-refinement 提供了快速收斂的能力，決定了在有限計算時間內能否有效降低誤差。
+
+整體而言，在本題這種針對平滑函數進行積分的情況下，p-refinement 的高效率與快速收斂特性更具實際價值。因此，在大多數需要兼顧準確度與計算成本的情境中，p-refinement 的重要性略高於 h-refinement。然而，在追求極限精度的應用中，兩者仍需共同作用，才能達到最佳的數值表現。
+
+\section*{計算 Legendre 多項式根與權重}
+
+在這次作業中，我參考了 \href{https://github.com/numpy/numpy}{Numpy} 的相關原始碼實作，使用 Golub-Welsch 演算法來計算 Legendre 多項式 $P_n(x)$ 的根與權重。
+
+在這裡我們使用二維 \verb|vector| 來表示矩陣：
+\begin{lstlisting}[language=C++]
+using Matrix = std::vector<std::vector<long double>>;
+\end{lstlisting}
+
+首先，我們需要建立一個大小為 $n \times n$ 的對稱三對角矩陣 $\jacobian$，其為多項式 $P_n(x)$ 的伴隨矩陣。對於 Legendre 多項式，矩陣 $\jacobian$ 的對角線元素皆為 $0$，而次對角線元素則為 $\beta_k = \frac{k}{\sqrt{4k^2 - 1}}$，其中 $k = 1, 2, \ldots, n-1$。矩陣 $\jacobian$ 的形式如下所示：
+\begin{equation}
+    \jacobian =
+    \begin{bmatrix}
+        0       & \beta_1 & 0       & \cdots & 0           & 0           \\
+        \beta_1 & 0       & \beta_2 & \cdots & 0           & 0           \\
+        0       & \beta_2 & 0       & \cdots & 0           & 0           \\
+        \vdots  & \vdots  & \vdots  & \ddots & \vdots      & \vdots      \\
+        0       & 0       & 0       & \cdots & 0           & \beta_{k-1} \\
+        0       & 0       & 0       & \cdots & \beta_{k-1} & 0
+    \end{bmatrix}_{n \times n}
+\end{equation}
+
+\begin{lstlisting}[language=C++]
+/**
+ * 產生 n 次 Legendre 多項式的伴隨矩陣
+ */
+Matrix legendre_companion_matrix(int n) {
+    Matrix J(n, std::vector<long double>(n, 0.0L));
+
+    // 填充 beta_k = k / sqrt(4k^2 - 1)
+    for (int k = 1; k < n; k++) {
+        long double beta = k / std::sqrt(4.0L * k * k - 1.0L);
+        J[k][k - 1] = J[k - 1][k] = beta;
+    }
+
+    return J;
+}
+\end{lstlisting}
+
+恰好矩陣 $\jacobian$ 的特徵值即為 Legendre 多項式 $P_n(x)$ 的根，而對應的特徵向量則可用來計算權重。接著，我們可以使用線性代數的方法（如 QR 分解、Jacobi 方法等）來求解矩陣 $\jacobian$ 的特徵值，即可獲得所需的所有根。其中我設定最大迭代次數為 $1000n$，並以長雙精度浮點數的機器精度作為收斂閾值。
+
+\begin{lstlisting}[language=C++]
+/**
+ * 使用 Jacobi 方法計算對稱矩陣的特徵值
+ */
+std::vector<long double> jacobi_eigen(const Matrix& _A) {
+    const long double eps = LDBL_EPSILON;    // 收斂閾值
+    const int max_iter = 1000 * n;  // 最大迭代次數
+    // 這裡應該實作特徵值分解的數值方法
+    // 返回特徵值陣列
+}
+\end{lstlisting}
+
+由於我們使用 Jacobi 方法計算出初步的根後，這些根可能還不是非常精確，因此我們接下來使用牛頓法來修正，進一步提升根的精度。對於每個初始根 $x_i$，我們可以使用以下迭代公式進行更新：
+\begin{equation}
+    {x_i} \leftarrow x_i - \frac{P_n(x_i)}{P_n'(x_i)}
+\end{equation}
+
+其中 $P_n(x)$ 為 Legendre 多項式，可以透過遞迴關係計算：
+\begin{align}
+    P_0(x)     & = 1, \quad P_1(x) = x,                                                       \\
+    P_{k+1}(x) & = \frac{(2k + 1)x P_k(x) - k P_{k-1}(x)}{k + 1}, \quad k = 1, 2, \ldots, n-1
+\end{align}
+導數 $P_n'(x)$ 也可以透過以下關係計算：
+\begin{equation}
+    P_n'(x) = \frac{n}{x^2 - 1} \left[ x P_n(x) - P_{n-1}(x) \right]
+\end{equation}
+
+\begin{lstlisting}[language=C++]
+/**
+ * 計算 Legendre 多項式 P_n(x)
+ */
+ld legendre_value(int n, ld x) {
+    if (n == 0) return 1.0L;  // P_0(x) = 1
+    if (n == 1) return x;     // P_1(x) = x
+    ld Pn_2 = 1.0L, Pn_1 = x, Pn;  // P_0(x), P_1(x)
+
+    // 使用遞迴公式從 P_2(x) 計算到 P_n(x)
+    for (int k = 2; k <= n; k++) {
+        Pn = ((2.0L * k - 1.0L) * x * Pn_1 - (k - 1.0L) * Pn_2) / k;
+        Pn_2 = Pn_1; Pn_1 = Pn;
+    }
+    return Pn;
+}
+
+/**
+ * 計算 Legendre 多項式 P_n(x) 的導數 P_n'(x)
+ */
+ld legendre_derivative(int n, ld x) {
+    if (n == 0) return 0.0L;  // P_0(x) = 1 -> P_0'(x) = 0
+    if (n == 1) return 1.0L;  // P_1(x) = x -> P_1'(x) = 1
+    ld Pn = legendre_value(n, x);
+    ld Pn_1 = legendre_value(n - 1, x);
+    return n / (x * x - 1.0L) * (x * Pn - Pn_1);
+}
+\end{lstlisting}
+
+得到修正後的根後，我們可以計算對應的權重 $w_i$，其計算公式如下：
+\begin{equation}
+    w_i = \frac{2}{(1 - x_i^2) [P_n'(x_i)]^2}
+\end{equation}
+
+由於 Legendre 多項式是偶對稱的，我們知道它的根是對稱的，即對於每個根 $x_i$，都有一個對應的根 $-x_i$。因此，在數值積分中，我們可以對計算出的根和權重進行對稱化：
+
+\begin{itemize}
+    \item 對稱化根：對於每一對根 $(-x_i, x_i)$，我們可以將它們合併成一個對稱的表示。
+    \item 對稱化權重：對於每一對根對應的權重，我們可以將它們進行平均，這樣保證積分結果對稱。
+\end{itemize}
+
+最後，為了確保 Gaussian Quadrature的結果正確，我們需要對權重進行縮放。由於 Gaussian Quadrature 要求權重的總和等於 2，我們需要對權重進行正規化處理：
+
+\begin{equation}
+    w_i \leftarrow \frac{w_i}{\sum w_i} \times 2
+\end{equation}
+
+範例程式碼如下所示：
+\begin{lstlisting}[language=C++]
+/**
+ * 計算 n 次 Legendre 多項式的根和權重
+ */
+std::pair<std::vector<ld>, std::vector<ld>> legendre_roots_weights(int n) {
+    // first approximation of roots. We use the fact that the companion
+    // matrix is symmetric in this case in order to obtain better zeros.
+    Matrix J = legendre_companion_matrix(n);
+    std::vector<ld> roots = jacobi_eigen(J);
+    std::sort(roots.begin(), roots.end());  // 將 roots 由小排到大
+
+    std::vector<ld> dy(n), df(n), fm(n), weights(n);
+    ld max_df = 0, max_fm = 0;
+
+    // improve roots by one application of Newton's method
+    for (int i = 0; i < n; i++) {
+        dy[i] = legendre_value(n, roots[i]);
+        df[i] = legendre_derivative(n, roots[i]);
+        roots[i] -= dy[i] / df[i];
+        max_df = std::max(max_df, std::fabs(df[i]));
+    }
+
+    // compute the weights. We scale the factor to avoid possible numerical
+    // overflow.
+    for (int i = 0; i < n; i++) {
+        fm[i] = legendre_value(n - 1, roots[i]);
+        max_fm = std::max(max_fm, std::fabs(fm[i]));
+    }
+
+    for (int i = 0; i < n; i++)
+        fm[i] /= max_fm, df[i] /= max_df;
+    for (int i = 0; i < n; i++)
+        weights[i] = 1.0L / (fm[i] * df[i]);
+
+    // for Legendre we can also symmetrize the roots and weights
+    std::vector<ld> w_copy = weights, r_copy = roots;
+    ld w_sum = 0.0L;
+    for (int i = 0; i < n; i++) {
+        weights[i] = (w_copy[i] + w_copy[n - 1 - i]) / 2.0L;
+        roots[i] = (r_copy[i] - r_copy[n - 1 - i]) / 2.0L;
+        w_sum += weights[i];
+    }
+
+    // scale weights to get the right value
+    for (int i = 0; i < n; i++)
+        weights[i] *= 2.0L / w_sum;
+
+    return {roots, weights};
+}
+\end{lstlisting}
+
+
+\end{document}

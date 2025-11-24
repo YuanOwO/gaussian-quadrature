@@ -316,16 +316,11 @@ int main() {
             using time_unit = std::chrono::duration<ld, std::micro>;  // 微秒
             ld time = std::chrono::duration_cast<time_unit>(elapsed).count() / 100;
 
-            ld err = result - 144.0L;  // 已知解析解為 144
-
-            if (n == 1) std::cout << "\\multirow{5}{*}{" << m << "}";
-            std::cout << " & " << n << " & ";
-            std::cout << std::fixed << std::setprecision(LDBL_DIG - 3) << "$" << result << "$ & ";
-            std::cout << std::defaultfloat << std::setprecision(6) << "$\\sci{" << err << "}$ & $\\sci{" << err / 144.0L
-                      << "}$ & ";
-            std::cout << std::defaultfloat << std::setprecision(4) << time << " µs \\\\" << std::endl;
+            ld error = result - 144.0L;  // 已知解析解為 144
+            std::cout << "mesh = " << m << ", n = " << n << ", result = " << result << ", err = " << error
+                      << ", rel_err = " << error / 144.0L << ", time = " << time << " µs" << std::endl;
         }
-        std::cout << "\\hline" << std::endl;
+        std::cout << "----------------------------------------" << std::endl;
     }
     return 0;
 }
