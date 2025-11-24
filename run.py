@@ -7,7 +7,7 @@ def compile_code():
 
 
 def execute_program(t, n):
-    proc = Popen(["./a.out"], stdin=PIPE, stdout=PIPE, stderr=PIPE)
+    proc = Popen(["./a.exe"], stdin=PIPE, stdout=PIPE, stderr=PIPE)
     stdout, stderr = proc.communicate(input=f"{t} {n}\n".encode())
 
     # errors = list(map(float, stdout.decode().strip().splitlines()))

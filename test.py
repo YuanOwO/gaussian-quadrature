@@ -1,8 +1,8 @@
-from subprocess import PIPE, Popen
+from subprocess import PIPE, Popen, run
 
 from numpy.polynomial.legendre import leggauss
 
-EPS = 1e-12
+EPS = 1e-13
 
 
 def test_precision(n: int):
@@ -34,7 +34,18 @@ def test_precision(n: int):
 
 
 if __name__ == "__main__":
-    proc = Popen(["g++", "-Iinclude", "-O1", "-O2", "legendre.cpp"])
-    proc.wait()
+    run(["g++", "-O2", "legendre.cpp"])
+
     for n in range(1, 129):
         test_precision(n)
+    # xx = []
+    # ww = []
+    # for n in range(1, 129):
+    #     x, w = leggauss(n)
+    #     xx.append(x.tolist())
+    #     ww.append(w.tolist())
+
+    # with open("legendre_roots_weights.json", "w") as f:
+    #     import json
+
+    #     json.dump({"roots": xx, "weights": ww}, f)

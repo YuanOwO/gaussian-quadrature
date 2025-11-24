@@ -101,38 +101,38 @@ plt.show()
 
 
 if __name__ == "__main__":
-    x = list(range(2, 101, 1))
+    x = list(range(1, 101, 1))
 
     ########################################
 
-    with open("results_n.json", "r") as f:
-        results_n = json.load(f)
+    # with open("results_n.json", "r") as f:
+    #     results_n = json.load(f)
 
-    keys = sorted(map(int, results_n.keys()))
+    # keys = sorted(map(int, results_n.keys()))
 
-    eeee = []
-    for k, errors in results_n.items():
-        errors = [abs(float(errors[i - 1])) for i in x]
-        eeee.append(errors)
-        # x = list(range(1, len(errors) + 1))
-        # print(f"n={k}: {errors}")
-        # plt.plot(x, errors, "o-")
-        # plt.yscale("log")
-        # plt.show()
+    # eeee = []
+    # for k, errors in results_n.items():
+    #     errors = [abs(float(errors[i - 1])) for i in x]
+    #     eeee.append(errors)
+    #     # x = list(range(1, len(errors) + 1))
+    #     # print(f"n={k}: {errors}")
+    #     # plt.plot(x, errors, "o-")
+    #     # plt.yscale("log")
+    #     # plt.show()
 
-    show_diff_plot(
-        "image/h_refinement.png",
-        x,
-        "Relative Error",
-        eeee[0],
-        "n=2",
-        eeee[1],
-        "n=3",
-        eeee[2],
-        "n=4",
-        xlabel="Mesh (M)",
-        logscale=True,
-    )
+    # show_diff_plot(
+    #     "image/h_refinement.png",
+    #     x,
+    #     "Relative Error",
+    #     eeee[0],
+    #     "n=2",
+    #     eeee[1],
+    #     "n=3",
+    #     eeee[2],
+    #     "n=4",
+    #     xlabel="Mesh (M)",
+    #     logscale=True,
+    # )
 
     ########################################
 
