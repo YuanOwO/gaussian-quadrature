@@ -12,7 +12,7 @@ ld f(ld x, ld y) {
 }
 
 /**
- * @brief 使用梯形法則計算 f(x, y) 在區域 [a, b] x [c, d] 上使用 n x m 分割的雙重積分
+ * @brief 使用梯形法則計算 f(x, y) 在區域 [a, b] x [c, d] 上使用 n x m 分割的雙重積分值
  *
  * @param a 區域起始 x 值
  * @param b 區域結束 x 值

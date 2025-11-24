@@ -225,7 +225,7 @@ long double f(long double x, long double y) {
 }
 
 /**
- * @brief 計算 cell 的 Gauss-Legendre 積分
+ * @brief 使用 Gauss-Legendre 積分公式計算 f(x, y) 在區域 [a, b] x [c, d] 上的雙重積分值
  *
  * 使用 Gauss-Legendre 積分法對區域 [a,b] x [c,d] 進行二重積分。
  * 這個函式將高斯節點映射到目標區域，並根據 Legendre 多項式的根與權重計算積分結果。
@@ -246,7 +246,7 @@ ld integrate_cell_gauss_legendre(ld a, ld b, ld c, ld d, std::vector<ld>& roots,
 
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            // 將 Gauss 節點轉換為區域 [a,b] x [c,d] 上的座標
+            // 將 Gaussian 節點轉換為區域 [a,b] x [c,d] 上的座標
             ld x = ((b - a) / 2.0L) * roots[i] + (a + b) / 2.0L;
             ld y = ((d - c) / 2.0L) * roots[j] + (c + d) / 2.0L;
 
@@ -260,7 +260,8 @@ ld integrate_cell_gauss_legendre(ld a, ld b, ld c, ld d, std::vector<ld>& roots,
 }
 
 /**
- * @brief 使用 Gaussian Quadrature 計算雙重積分
+ * @brief 使用 Gauss-Legendre 積分公式計算 f(x, y) 在區域 [a, b] x [c, d] 上使用 n 個節點和 meshs x meshs
+ * 分割的雙重積分值
  *
  * 利用 Gauss-Legendre Quadrature 對區域 [a,b] x [c,d] 上的函數進行雙重積分。
  * 首先將區域劃分為小網格，然後對每個小區域 (cell) 使用高斯積分進行計算。
@@ -273,25 +274,19 @@ ld integrate_cell_gauss_legendre(ld a, ld b, ld c, ld d, std::vector<ld>& roots,
  * @param mesh_size 網格大小
  * @return ld 計算得到的雙重積分結果
  */
-ld integrate_gauss_legendre(ld a, ld b, ld c, ld d, int n, int mesh_size) {
+ld integrate_gauss_legendre(ld a, ld b, ld c, ld d, int n, int meshs) {
     // 取得 Legendre 多項式 P_n(x) 的根與權重
     auto [roots, weights] = legendre_roots_weights(n);
-
     // 計算每個網格單元的大小
-    ld hx = (b - a) / mesh_size;
-    ld hy = (d - c) / mesh_size;
-
-    int cells_x = (b - a) / hx;  // x 方向上分割的 cell 數量
-    int cells_y = (d - c) / hy;  // y 方向上分割的 cell 數量
-
-    ld integral = 0.0L;
+    long double hx = (b - a) / meshs, hy = (d - c) / meshs;
+    long double integral = 0.0L;
 
     // 對每個 cell 進行積分並累加結果
-    for (int i = 0; i < cells_x; i++) {
-        for (int j = 0; j < cells_y; j++) {
+    for (int i = 0; i < meshs; i++) {
+        for (int j = 0; j < meshs; j++) {
             // 計算每個 cell 的邊界
-            ld cell_a = a + i * hx, cell_b = cell_a + hx;
-            ld cell_c = c + j * hy, cell_d = cell_c + hy;
+            long double cell_a = a + i * hx, cell_b = cell_a + hx;
+            long double cell_c = c + j * hy, cell_d = cell_c + hy;
 
             // 計算該 cell 的積分並累加
             integral += integrate_cell_gauss_legendre(cell_a, cell_b, cell_c, cell_d, roots, weights);
@@ -302,17 +297,17 @@ ld integrate_gauss_legendre(ld a, ld b, ld c, ld d, int n, int mesh_size) {
 }
 
 int main() {
-    std::vector<int> mash_sizes = {1, 2, 4, 8, 16, 32, 64};
+    std::vector<int> mesh_values = {1, 2, 4, 8, 16, 32, 64};
     std::vector<int> n_values = {1, 2, 3, 4, 5};
 
-    for (auto&& mash_size : mash_sizes) {
+    for (auto&& m : mesh_values) {
         for (auto&& n : n_values) {
             ld result;
             auto start = std::chrono::high_resolution_clock::now();  // 開始計時
 
             // 重複計算 100 次以取得較穩定的時間
             for (int i = 0; i < 100; i++) {
-                result = integrate_gauss_legendre(2.0L, 6.0L, 2.0L, 6.0L, n, mash_size);
+                result = integrate_gauss_legendre(2.0L, 6.0L, 2.0L, 6.0L, n, m);
             }
 
             auto end = std::chrono::high_resolution_clock::now();  // 結束計時
@@ -323,7 +318,7 @@ int main() {
 
             ld err = result - 144.0L;  // 已知解析解為 144
 
-            if (n == 1) std::cout << "\\multirow{5}{*}{" << mash_size << "}";
+            if (n == 1) std::cout << "\\multirow{5}{*}{" << m << "}";
             std::cout << " & " << n << " & ";
             std::cout << std::fixed << std::setprecision(LDBL_DIG - 3) << "$" << result << "$ & ";
             std::cout << std::defaultfloat << std::setprecision(6) << "$\\sci{" << err << "}$ & $\\sci{" << err / 144.0L
