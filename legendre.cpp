@@ -302,10 +302,9 @@ ld integrate_gauss_legendre(ld a, ld b, ld c, ld d, int n, int mesh_size) {
 }
 
 int main() {
-    // std::cout << std::fixed << std::setprecision(15);
-
     std::vector<int> mash_sizes = {1, 2, 4, 8, 16, 32, 64};
     std::vector<int> n_values = {1, 2, 3, 4, 5};
+
     for (auto&& mash_size : mash_sizes) {
         for (auto&& n : n_values) {
             ld result;
