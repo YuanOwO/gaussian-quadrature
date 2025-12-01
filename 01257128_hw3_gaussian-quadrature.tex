@@ -22,6 +22,7 @@
 \usepackage{cancel}                         % 取消線
 \usepackage{multirow}                       % 表格合併列
 \usepackage{float}                          % 浮動物件位置強制
+\usepackage{notomath}                       % Noto 數學字體
 % \usepackage{courier}
 % \usepackage[Glenn]{fncychap}              % 排版，頁面模板
 % \usepackage{CJKulem}
@@ -30,38 +31,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \setmainfont{Noto Serif}  % 主要字體
-[
-    % Path           = ../.fonts/Noto_Serif/,
-    % Extension      = .ttf,
-    % UprightFont    = *-Regular,
-    % BoldFont       = *-Bold,
-    % ItalicFont     = *-Italic,
-    % BoldItalicFont = *-BoldItalic,
-]
 
-\setmonofont{Consolas}[  % 等寬字體
-    Path           = ../.fonts/Consolas/,
-    Extension      = .ttf,
-    UprightFont    = *-Regular,
-    BoldFont       = *-Bold,
-    ItalicFont     = *-Italic,
-    % BoldItalicFont = *-BoldItalic,
-]
+\setmonofont{Menlo}  % 等寬字體
 
-\setCJKmainfont{NotoSerifTC}[  % 中文主要字體
-    Path           = ../.fonts/Noto_Serif_TC/,
-    Extension      = .ttf,
-    UprightFont    = *-Regular,
-    BoldFont       = *-Bold,
+\setCJKmainfont{Noto Serif TC}[  % 中文主要字體
     ItalicFont     = *-Regular, % 中文沒有斜體
     BoldItalicFont = *-Bold,    % 中文沒有斜體
 ]
 
-\setCJKmonofont{NotoSerifTC}[  % 中文等寬字體
-    Path           = ../.fonts/Noto_Serif_TC/,
-    Extension      = .ttf,
-    UprightFont    = *-Regular,
-    BoldFont       = *-Bold,
+\setCJKmonofont{Noto Sans TC}[  % 中文等寬字體
     ItalicFont     = *-Regular, % 中文沒有斜體
     BoldItalicFont = *-Bold,    % 中文沒有斜體
 ]
@@ -116,11 +94,6 @@
     stringstyle=\itshape\stringcolor,       % 字串的字型
 }
 
-\newcommand{\inputcpp}[ 1]{\lstinputlisting[language=C++]{#1}}  % 引入 C++
-\newcommand{\inputpy}[ 1]{\lstinputlisting[language=Python]{#1}}     % 引入蟒蛇
-\newcommand{\inputjava}[ 1]{\lstinputlisting[language=Java]{#1}}     % 引入爪哇
-\newcommand{\inputtxt}[ 1]{\lstinputlisting{#1}}                     % 引入文字檔
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \geometry{a4paper}                           % 頁面 A4 大小
@@ -128,14 +101,7 @@
 \geometry{headsep=5mm}                       % 頁首和內文的距離
 \geometry{vmargin=1in, hmargin=1in}    % 垂直、水平邊界
 
-\setlength{\columnsep}{3mm}                  % 兩欄模式的間距
-\setlength{\columnseprule}{0pt}              % 兩欄模式間格線粗細
 \setlength{\parskip}{1.25ex}                   % 段落間距
-
-% \titlespacing{\section}{0cm}{24pt}{6pt}
-% \titlespacing{\subsection}{0cm}{0cm}{0cm}
-
-\setcounter{secnumdepth}{3}                  % 目錄顯示第三層
 
 \XeTeXlinebreaklocale "zh"                   % 中文自動換行
 \XeTeXlinebreakskip = 0pt plus 1pt           % 設定段落之間的距離
@@ -406,7 +372,7 @@ std::vector<int> n_values = {1, 2, 3, 4, 5, 6, 7};        // 要測試的 n 值
 
 for (auto&& m : mesh_values) {
     for (auto&& n : n_values) {
-        ld result;
+        long double result;
         auto start = std::chrono::high_resolution_clock::now(); // 開始計時
 
         for (int iter = 0; iter < 100; iter++)
@@ -415,10 +381,10 @@ for (auto&& m : mesh_values) {
         auto end = std::chrono::high_resolution_clock::now();   // 結束計時
         auto elapsed = end - start;
 
-        using time_unit = std::chrono::duration<ld, std::micro>;  // 微秒
-        ld time = std::chrono::duration_cast<time_unit>(elapsed).count() / 100;
+        using time_unit = std::chrono::duration<long double, std::micro>;  // 微秒
+        long double time = std::chrono::duration_cast<time_unit>(elapsed).count() / 100;
 
-        ld error = result - 144.0L;  // 已知解析解為 144
+        long double error = result - 144.0L;  // 已知解析解為 144
 
         std::cout << "mesh = " << m << ", n = " << n << ", result = " << result
                   << ", err = " << error << ", rel_err = " << error / 144.0L
@@ -602,10 +568,10 @@ std::vector<long double> jacobi_eigen(const Matrix& _A) {
 /**
  * 計算 Legendre 多項式 P_n(x)
  */
-ld legendre_value(int n, ld x) {
+long double legendre_value(int n, long double x) {
     if (n == 0) return 1.0L;  // P_0(x) = 1
     if (n == 1) return x;     // P_1(x) = x
-    ld Pn_2 = 1.0L, Pn_1 = x, Pn;  // P_0(x), P_1(x)
+    long double Pn_2 = 1.0L, Pn_1 = x, Pn;  // P_0(x), P_1(x)
 
     // 使用遞迴公式從 P_2(x) 計算到 P_n(x)
     for (int k = 2; k <= n; k++) {
@@ -618,11 +584,11 @@ ld legendre_value(int n, ld x) {
 /**
  * 計算 Legendre 多項式 P_n(x) 的導數 P_n'(x)
  */
-ld legendre_derivative(int n, ld x) {
+long double legendre_derivative(int n, long double x) {
     if (n == 0) return 0.0L;  // P_0(x) = 1 -> P_0'(x) = 0
     if (n == 1) return 1.0L;  // P_1(x) = x -> P_1'(x) = 1
-    ld Pn = legendre_value(n, x);
-    ld Pn_1 = legendre_value(n - 1, x);
+    long double Pn = legendre_value(n, x);
+    long double Pn_1 = legendre_value(n - 1, x);
     return n / (x * x - 1.0L) * (x * Pn - Pn_1);
 }
 \end{lstlisting}
@@ -650,15 +616,15 @@ ld legendre_derivative(int n, ld x) {
 /**
  * 計算 n 次 Legendre 多項式的根和權重
  */
-std::pair<std::vector<ld>, std::vector<ld>> legendre_roots_weights(int n) {
+std::pair<std::vector<long double>, std::vector<long double>> legendre_roots_weights(int n) {
     // first approximation of roots. We use the fact that the companion
     // matrix is symmetric in this case in order to obtain better zeros.
     Matrix J = legendre_companion_matrix(n);
-    std::vector<ld> roots = jacobi_eigen(J);
+    std::vector<long double> roots = jacobi_eigen(J);
     std::sort(roots.begin(), roots.end());  // 將 roots 由小排到大
 
-    std::vector<ld> dy(n), df(n), fm(n), weights(n);
-    ld max_df = 0, max_fm = 0;
+    std::vector<long double> dy(n), df(n), fm(n), weights(n);
+    long double max_df = 0, max_fm = 0;
 
     // improve roots by one application of Newton's method
     for (int i = 0; i < n; i++) {
@@ -681,8 +647,8 @@ std::pair<std::vector<ld>, std::vector<ld>> legendre_roots_weights(int n) {
         weights[i] = 1.0L / (fm[i] * df[i]);
 
     // for Legendre we can also symmetrize the roots and weights
-    std::vector<ld> w_copy = weights, r_copy = roots;
-    ld w_sum = 0.0L;
+    std::vector<long double> w_copy = weights, r_copy = roots;
+    long double w_sum = 0.0L;
     for (int i = 0; i < n; i++) {
         weights[i] = (w_copy[i] + w_copy[n - 1 - i]) / 2.0L;
         roots[i] = (r_copy[i] - r_copy[n - 1 - i]) / 2.0L;
