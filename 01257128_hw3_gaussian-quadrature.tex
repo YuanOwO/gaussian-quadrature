@@ -1,4 +1,4 @@
-\documentclass[a4paper,  10pt, oneside, fleqn]{article}
+\documentclass[a4paper, 10pt, oneside, fleqn]{article}
 
 \usepackage{amsmath, amssymb, amsthm}       % 美國數學學會
 \usepackage[CheckSingle, CJKmath]{xeCJK}    % 中文
@@ -10,23 +10,17 @@
 \usepackage{datetime2}                      % 日期、時間
 \usepackage{listings}                       % 顯示 code 用的
 \usepackage{tikz}                           % 畫圖
-\usepackage{enumerate}
-\usepackage{enumitem}
-\usepackage{ulem}
-\usepackage{graphicx}
-\usepackage{multicol}
-\usepackage{titlesec}
-\usepackage{xpatch}
+\usepackage{enumerate}                      % 列舉環境
+\usepackage{enumitem}                       % 自訂列舉環境
+\usepackage{ulem}                           % 文字底線、刪除線
+\usepackage{graphicx}                       % 插入圖片
+\usepackage{multicol}                       % 多欄排版
 \usepackage{hyperref}                       % 超連結
 \usepackage{subcaption}                     % 子圖
 \usepackage{cancel}                         % 取消線
 \usepackage{multirow}                       % 表格合併列
 \usepackage{float}                          % 浮動物件位置強制
 \usepackage{notomath}                       % Noto 數學字體
-% \usepackage{courier}
-% \usepackage[Glenn]{fncychap}              % 排版，頁面模板
-% \usepackage{CJKulem}
-% \usepackage[T1]{fontenc}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -94,20 +88,25 @@
     stringstyle=\itshape\stringcolor,       % 字串的字型
 }
 
+\newcommand{\inputcpp}[ 1]{\lstinputlisting[language=C++]{#1}}      % 引入 C++
+\newcommand{\inputpy}[ 1]{\lstinputlisting[language=Python]{#1}}    % 引入 Python
+\newcommand{\inputjava}[ 1]{\lstinputlisting[language=Java]{#1}}    % 引入 Java
+\newcommand{\inputtxt}[ 1]{\lstinputlisting{#1}}                    % 引入文字檔
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\geometry{a4paper}                           % 頁面 A4 大小
-% \geometry{includehead}  % 內文區塊包含頁首，沒有頁尾、旁注
-\geometry{headsep=5mm}                       % 頁首和內文的距離
-\geometry{vmargin=1in, hmargin=1in}    % 垂直、水平邊界
+\geometry{a4paper}                  % 頁面 A4 大小
+% \geometry{includehead}            % 內文區塊包含頁首，沒有頁尾、旁注
+\geometry{headsep=5mm}              % 頁首和內文的距離
+\geometry{vmargin=1in, hmargin=1in} % 垂直、水平邊界
 
-\setlength{\parskip}{1.25ex}                   % 段落間距
+\setlength{\parskip}{1.25ex}        % 段落間距
 
-\XeTeXlinebreaklocale "zh"                   % 中文自動換行
-\XeTeXlinebreakskip = 0pt plus 1pt           % 設定段落之間的距離
+\XeTeXlinebreaklocale "zh"          % 中文自動換行
+\XeTeXlinebreakskip = 0pt plus 1pt  % 設定段落之間的距離
 
-\renewcommand{\arraystretch}{1.5}
-\setlength{\tabcolsep}{1.25ex}
+\renewcommand{\arraystretch}{1.5}   % 表格列高
+\setlength{\tabcolsep}{1.25ex}      % 表格欄寬
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -133,22 +132,6 @@
 
 \begin{document}
 \pagestyle{fancy}
-
-%%%%%%%%%%
-
-% 有序列表樣式
-% \renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}.}
-% \renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}
-% \renewcommand{\labelenumiv}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic{enumiv}.}
-
-%%%%%%%%%%
-
-% 目錄
-% \renewcommand{\contentsname}{Contents}
-% \scriptsize
-% \begin{multicols}{2}
-%     \tableofcontents
-% \end{multicols}
 
 %%%%%%%%%%
 
